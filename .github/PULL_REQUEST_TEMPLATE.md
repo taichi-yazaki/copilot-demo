@@ -2,7 +2,7 @@
 
 ## レビューに関して
 
-レビューする際には、以下の prefix(接頭辞)を付けましょう。
+GitHub Copilot のレビューでは、以下の prefix(接頭辞)がつきます。
 
 <!-- for GitHub Copilot review rule -->
 
