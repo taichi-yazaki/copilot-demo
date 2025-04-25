@@ -11,7 +11,6 @@ export class AppService {
     let i = 0;
     while (i < limit) {
       sum += i;
-      // i++ を書き忘れてる → 無限ループ
     }
     return sum;
   }
