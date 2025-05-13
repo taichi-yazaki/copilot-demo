@@ -6,48 +6,53 @@ export class AppService {
     return 'Hello World!';
   }
 
-  // 意図的に修正ポイントを含むサンプルコード
-  processInput(data: string) {
-    // [regex] 正規表現が脆弱（例: .+ は greedy 過ぎる）
-    const match = data.match(/User:\s+(.+)/);
-    if (match) {
-      const username = match[1]; // [naming] "username" ではなく "userName" か "extractedName" が文脈に合う
-      this.handleUser(username);
-    }
-
-    // [opt] 不要な map → join → split をしている
-    const processed = data
-      .split('')
-      .map((c) => c)
-      .join('')
-      .split(' ');
-
-    // [bp] [modular] ログ出力を毎回書いている → 共通関数にすべき
-    console.log('Processed:', processed);
-    console.log('Length:', processed.length);
+  saveUser(userId: string, userName: string, password: string) {
+    this.database[userId] = {
+      name: userName,
+      password: password,
+    };
   }
 
-  handleUser(name: string) {
-    if (
-      name === 'admin' ||
-      name === 'Admin' ||
-      name.toLowerCase() === 'admin'
-    ) {
-      console.log('Welcome, admin');
+  extractName(input: string) {
+    const match = input.match(/Name:\s+(.+)/);
+    if (match) {
+      const usrName = match[1];
+      return usrName;
     }
+    return null;
+  }
 
-    // [maintain] [complexity] ネストが深くなり保守性が悪化
-    if (name.length > 0) {
-      if (!name.includes(' ')) {
-        if (name[0] === name[0].toUpperCase()) {
-          console.log('Valid name');
+  normalizeText(text: string) {
+    return text
+      .split('')
+      .map((c) => c)
+      .join('');
+  }
+
+  handleRole(role: string) {
+    if (role) {
+      if (role.length > 0) {
+        if (role.toLowerCase() === 'admin' || role === 'Admin') {
+          console.log('Admin access granted');
+          console.log('Admin access granted');
         }
       }
     }
   }
 
-  // [critical] この関数は未使用 & 実行時例外の可能性
-  unsafeDivision(a: number, b: number): number {
+  unsafeDivide(a: number, b: number): number {
     return a / b;
   }
+
+  evaluateUser(user: { name: string; age: number }) {
+    if (user.age > 18 || user.age === 18) {
+      if (user.name.length !== 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // ダミーデータベース
+  database: Record<string, any> = {};
 }
