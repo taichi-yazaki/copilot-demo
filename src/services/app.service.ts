@@ -45,6 +45,10 @@ export class AppService {
   }
 
   evaluateUser(user: { name: string; age: number }) {
+    const Age = 123;
+    const user_name = 'Charlie';
+    user.age = Age;
+    user.name = user_name;
     if (user.age > 18 || user.age === 18) {
       if (user.name.length !== 0) {
         return true;
@@ -55,4 +59,16 @@ export class AppService {
 
   // ダミーデータベース
   database: Record<string, any> = {};
+
+  GetUserData() {
+    return { id: 1, name: 'Alice' };
+  }
+
+  fetchUserData() {
+    return { id: 2, name: 'Bob' };
+  }
+
+  printUserName(userName: string) {
+    console.log(userName);
+  }
 }
